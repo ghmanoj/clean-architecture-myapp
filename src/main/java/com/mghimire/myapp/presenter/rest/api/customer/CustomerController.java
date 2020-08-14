@@ -4,14 +4,16 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+
+import com.mghimire.myapp.presenter.rest.api.entities.ApiResponse;
+import com.mghimire.myapp.presenter.rest.api.entities.CustomerRequest;
+import com.mghimire.myapp.presenter.rest.api.entities.CustomerResponse;
 import com.mghimire.myapp.core.usecases.UseCaseExecutor;
 import com.mghimire.myapp.core.usecases.customer.CreateCustomerUseCase;
 import com.mghimire.myapp.core.usecases.customer.DeleteCustomerUseCase;
 import com.mghimire.myapp.core.usecases.customer.GetAllCustomersUseCase;
 import com.mghimire.myapp.core.usecases.customer.GetCustomerByPhoneNumberUseCase;
-import com.mghimire.myapp.presenter.rest.api.entities.ApiResponse;
-import com.mghimire.myapp.presenter.rest.api.entities.CustomerRequest;
-import com.mghimire.myapp.presenter.rest.api.entities.CustomerResponse;
+import com.mghimire.myapp.core.usecases.customer.UpdateCustomerUseCase;
 
 @Component
 public class CustomerController implements CustomerResource {
@@ -20,6 +22,7 @@ public class CustomerController implements CustomerResource {
   private final GetCustomerByPhoneNumberUseCase getCustomerByPhoneNumberUseCase;
   private final CreateCustomerUseCase createCustomerUseCase;
   private final DeleteCustomerUseCase deleteCustomerUseCase;
+  private final UpdateCustomerUseCase updateCustomerUseCase;
 
   private final UseCaseExecutor useCaseExecutor;
 
@@ -28,7 +31,8 @@ public class CustomerController implements CustomerResource {
     GetAllCustomersUseCase getAllCustomersUseCase,
     GetCustomerByPhoneNumberUseCase getCustomerByPhoneNumberUseCase,
     CreateCustomerUseCase createCustomerUseCase,
-    DeleteCustomerUseCase deleteCustomerUseCase) {
+    DeleteCustomerUseCase deleteCustomerUseCase,
+    UpdateCustomerUseCase updateCustomerUseCase) {
 
     this.useCaseExecutor = useCaseExecutor;
 
@@ -36,6 +40,7 @@ public class CustomerController implements CustomerResource {
     this.getCustomerByPhoneNumberUseCase = getCustomerByPhoneNumberUseCase;
     this.createCustomerUseCase = createCustomerUseCase;
     this.deleteCustomerUseCase = deleteCustomerUseCase;
+    this.updateCustomerUseCase = updateCustomerUseCase;
   }
 
   @Override
@@ -76,6 +81,15 @@ public class CustomerController implements CustomerResource {
       deleteCustomerUseCase,
       new DeleteCustomerUseCase.InputValues(phoneNumber),
       outputValues -> ApiResponse.from("Customer with phone number " + outputValues.getCustomer().getPhoneNumber() + " deleted")
+    );
+  }
+
+  @Override
+  public CompletableFuture<ResponseEntity<ApiResponse>> updateCustomer(CustomerRequest customerRequest) {
+    return useCaseExecutor.execute(
+      updateCustomerUseCase,
+      new UpdateCustomerUseCase.InputValues(customerRequest.getPhoneNumber(), customerRequest.getName(), customerRequest.getEmail()),
+      outputValues -> ApiResponse.from("Customer with phone number " + outputValues.getCustomer().getPhoneNumber() + " updated")
     );
   }
 }

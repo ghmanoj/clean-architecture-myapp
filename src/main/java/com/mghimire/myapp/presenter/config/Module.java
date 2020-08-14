@@ -5,6 +5,7 @@ import com.mghimire.myapp.core.usecases.customer.CustomerRepository;
 import com.mghimire.myapp.core.usecases.customer.DeleteCustomerUseCase;
 import com.mghimire.myapp.core.usecases.customer.GetAllCustomersUseCase;
 import com.mghimire.myapp.core.usecases.customer.GetCustomerByPhoneNumberUseCase;
+import com.mghimire.myapp.core.usecases.customer.UpdateCustomerUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -30,5 +31,10 @@ public class Module {
   @Bean
   public DeleteCustomerUseCase deleteCustomerUseCase(CustomerRepository repository) {
     return new DeleteCustomerUseCase(repository);
+  }
+
+  @Bean
+  public UpdateCustomerUseCase updateCustomerUseCase(CustomerRepository repository) {
+    return new UpdateCustomerUseCase(repository);
   }
 }

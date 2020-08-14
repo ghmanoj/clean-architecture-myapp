@@ -1,10 +1,12 @@
 package com.mghimire.myapp.presenter.rest.api.customer;
 
+import com.mghimire.myapp.core.domain.Customer;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,4 +32,6 @@ public interface CustomerResource {
   @DeleteMapping("/{phoneNumber}")
   CompletableFuture<ResponseEntity<ApiResponse>> deleteCustomer(@PathVariable("phoneNumber") String phoneNumber);
 
+  @PatchMapping("/update")
+  CompletableFuture<ResponseEntity<ApiResponse>> updateCustomer(@RequestBody CustomerRequest customerRequest);
 }
