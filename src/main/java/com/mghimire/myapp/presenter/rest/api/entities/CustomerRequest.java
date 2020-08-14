@@ -42,9 +42,9 @@ public class CustomerRequest {
   @Override
   public String toString() {
     return "CustomerRequest{" +
-        "phoneNumber='" + phoneNumber + '\'' +
-        ", name='" + name + '\'' +
-        ", email='" + email + '\'' +
-        '}';
+      "phoneNumber='" + phoneNumber + '\'' +
+      ", name='" + name + '\'' +
+      ", email='" + email + '\'' +
+      '}';
   }
 }

@@ -3,14 +3,13 @@ package com.mghimire.myapp.core.usecases.customer;
 import com.mghimire.myapp.core.domain.Customer;
 import com.mghimire.myapp.core.domain.NotFoundException;
 import com.mghimire.myapp.core.usecases.UseCase;
-import java.util.Optional;
 
-public class GetCustomerByPhoneNumberUseCase extends
-  UseCase<GetCustomerByPhoneNumberUseCase.InputValues, GetCustomerByPhoneNumberUseCase.OutputValues> {
+public class DeleteCustomerUseCase extends
+  UseCase<DeleteCustomerUseCase.InputValues, DeleteCustomerUseCase.OutputValues> {
 
   private final CustomerRepository repository;
 
-  public GetCustomerByPhoneNumberUseCase(CustomerRepository repository) {
+  public DeleteCustomerUseCase(CustomerRepository repository) {
     this.repository = repository;
   }
 
@@ -18,24 +17,17 @@ public class GetCustomerByPhoneNumberUseCase extends
   public OutputValues execute(InputValues input) {
     String phoneNumber = input.getPhoneNumber();
 
-    Optional<Customer> customer = repository.getCustomerByPhoneNumber(phoneNumber);
+    if (!repository.existsByPhoneNumber(phoneNumber))
+      throw new NotFoundException("Customer with phone number " + phoneNumber + " not found");
 
-    if (customer.isEmpty()) {
-      throw new NotFoundException(
-        String.format("Customer with phone number %s not found", phoneNumber)
-      );
-    }
-    return new OutputValues(customer.get());
+    Customer deletedCustomer = repository.delete(phoneNumber);
+    return new OutputValues(deletedCustomer);
   }
 
   public static class InputValues implements UseCase.InputValues {
-
     private final String phoneNumber;
 
     public InputValues(String phoneNumber) {
-      if (phoneNumber == null) {
-        throw new IllegalArgumentException("Phone number cannot be null");
-      }
       this.phoneNumber = phoneNumber;
     }
 
@@ -45,7 +37,6 @@ public class GetCustomerByPhoneNumberUseCase extends
   }
 
   public static class OutputValues implements UseCase.OutputValues {
-
     private final Customer customer;
 
     public OutputValues(Customer customer) {

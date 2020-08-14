@@ -18,17 +18,18 @@ public class DBConfig {
     String dbUserName = System.getenv("PG_DB_USERNAME");
     String dbPassword = System.getenv("PG_DB_PASSWORD");
 
-    if (dbUrl == null || dbUserName == null || dbPassword == null)
+    if (dbUrl == null || dbUserName == null || dbPassword == null) {
       throw new IllegalArgumentException(
-          "Invalid configuration for database!" +
-              " Check PG_DB_URL, PG_DB_USERNAME, PG_DB_PASSWORD" +
-              " environment variables"
+        "Invalid configuration for database!" +
+          " Check PG_DB_URL, PG_DB_USERNAME, PG_DB_PASSWORD" +
+          " environment variables"
       );
+    }
 
     return DataSourceBuilder.create()
-        .url(dbUrl)
-        .username(dbUserName)
-        .password(dbPassword)
-        .build();
+      .url(dbUrl)
+      .username(dbUserName)
+      .password(dbPassword)
+      .build();
   }
 }

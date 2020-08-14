@@ -18,7 +18,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
   }
 
   @ExceptionHandler(value = {PhoneNumberAlreadyUsedException.class})
-  ResponseEntity<ApiResponse> handlePhoneNumberAlreadyUsedException(PhoneNumberAlreadyUsedException ex) {
+  ResponseEntity<ApiResponse> handlePhoneNumberAlreadyUsedException(
+    PhoneNumberAlreadyUsedException ex) {
     return new ResponseEntity<>(new ApiResponse(false, ex.getMessage()), HttpStatus.BAD_REQUEST);
   }
 

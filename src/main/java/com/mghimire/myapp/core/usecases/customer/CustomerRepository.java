@@ -14,4 +14,5 @@ public interface CustomerRepository {
 
   Customer persist(Customer customer);
 
+  Customer delete(String phoneNumber);
 }

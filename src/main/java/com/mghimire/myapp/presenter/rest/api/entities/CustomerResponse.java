@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CustomerResponse {
+
   private final String phoneNumber;
   private final String email;
   private final String name;
@@ -36,15 +37,15 @@ public class CustomerResponse {
 
   public static CustomerResponse from(Customer customer) {
     return new CustomerResponse(
-        customer.getPhoneNumber(),
-        customer.getEmail(),
-        customer.getName()
+      customer.getPhoneNumber(),
+      customer.getEmail(),
+      customer.getName()
     );
   }
 
   public static List<CustomerResponse> from(List<Customer> customers) {
     return customers.parallelStream()
-        .map(CustomerResponse::from)
-        .collect(Collectors.toList());
+      .map(CustomerResponse::from)
+      .collect(Collectors.toList());
   }
 }

@@ -31,9 +31,9 @@ public class Customer {
     private String name;
 
     public Builder(String phoneNumber) {
-			if (phoneNumber == null) {
-				throw new IllegalArgumentException("Phone number cannot be empty");
-			}
+      if (phoneNumber == null) {
+        throw new IllegalArgumentException("Phone number cannot be empty");
+      }
 
       this.phoneNumber = phoneNumber;
     }
@@ -44,9 +44,9 @@ public class Customer {
     }
 
     public Builder setName(String name) {
-			if (name == null) {
-				throw new IllegalArgumentException("Name cannot be empty");
-			}
+      if (name == null) {
+        throw new IllegalArgumentException("Name cannot be empty");
+      }
 
       this.name = name;
       return this;

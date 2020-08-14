@@ -66,9 +66,9 @@ public class CustomerEntity implements Serializable {
   public static Customer fromThis(CustomerEntity customerEntity) {
 
     return new Customer.Builder(customerEntity.getPhoneNumber())
-        .setEmail(customerEntity.getEmail())
-        .setName(customerEntity.getName())
-        .build();
+      .setEmail(customerEntity.getEmail())
+      .setName(customerEntity.getName())
+      .build();
   }
 
   public static CustomerEntity from(Customer customer) {

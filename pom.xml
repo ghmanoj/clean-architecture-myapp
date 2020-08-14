@@ -61,7 +61,7 @@
               <goal>repackage</goal>
             </goals>
             <configuration>
-              <classifier>with-lib-${project.version}</classifier>
+              <classifier>with-lib</classifier>
               <mainClass>com.mghimire.myapp.presenter.MainApplication</mainClass>
             </configuration>
           </execution>

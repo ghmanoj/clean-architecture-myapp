@@ -13,11 +13,12 @@ public class UseCaseExecutorImpl implements UseCaseExecutor {
 
   @Override
   public <RX, I extends InputValues, O extends OutputValues> CompletableFuture<RX> execute(
-      UseCase<I, O> useCase, I input, Function<O, RX> outputMapper) {
+    UseCase<I, O> useCase, I input, Function<O, RX> outputMapper) {
+
     return CompletableFuture
-        .supplyAsync(() -> input)
-        .thenApplyAsync(useCase::execute)
-        .thenApplyAsync(outputMapper);
+      .supplyAsync(() -> input)
+      .thenApplyAsync(useCase::execute)
+      .thenApplyAsync(outputMapper);
   }
 
 }

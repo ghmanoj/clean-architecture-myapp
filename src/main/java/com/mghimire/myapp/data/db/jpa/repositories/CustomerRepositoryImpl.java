@@ -1,6 +1,7 @@
 package com.mghimire.myapp.data.db.jpa.repositories;
 
 import com.mghimire.myapp.core.domain.Customer;
+import com.mghimire.myapp.core.domain.NotFoundException;
 import com.mghimire.myapp.core.usecases.customer.CustomerRepository;
 import com.mghimire.myapp.data.db.jpa.entities.CustomerEntity;
 import java.util.List;
@@ -25,9 +26,9 @@ public class CustomerRepositoryImpl implements CustomerRepository {
   @Override
   public List<Customer> getAllCustomers() {
     return jpaRepository.findAll()
-        .stream()
-        .map(CustomerEntity::fromThis)
-        .collect(Collectors.toList());
+      .stream()
+      .map(CustomerEntity::fromThis)
+      .collect(Collectors.toList());
   }
 
   @Override
@@ -38,9 +39,14 @@ public class CustomerRepositoryImpl implements CustomerRepository {
   @Override
   public Customer persist(Customer customer) {
     CustomerEntity customerEntity = CustomerEntity.from(customer);
-
     CustomerEntity savedCustomerEntity = jpaRepository.save(customerEntity);
-
     return CustomerEntity.fromThis(savedCustomerEntity);
+  }
+
+  @Override
+  public Customer delete(String phoneNumber) {
+    CustomerEntity customerEntity = jpaRepository.findByPhoneNumber(phoneNumber).orElseThrow();
+    jpaRepository.delete(customerEntity);
+    return CustomerEntity.fromThis(customerEntity);
   }
 }

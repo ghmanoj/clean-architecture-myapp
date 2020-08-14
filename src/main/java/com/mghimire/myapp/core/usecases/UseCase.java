@@ -5,13 +5,15 @@ import com.mghimire.myapp.core.usecases.UseCase.OutputValues;
 
 public abstract class UseCase<I extends InputValues, O extends OutputValues> {
 
-	// gets input and executes and returns output value
-	public abstract O execute(I input);
+  // gets input and executes and returns output value
+  public abstract O execute(I input);
 
-	public interface InputValues {
-	}
+  public interface InputValues {
 
-	public interface OutputValues {
-	}
+  }
+
+  public interface OutputValues {
+
+  }
 
 }

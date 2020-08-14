@@ -5,7 +5,7 @@ import com.mghimire.myapp.core.usecases.UseCase;
 import java.util.List;
 
 public class GetAllCustomersUseCase extends
-    UseCase<GetAllCustomersUseCase.InputValues, GetAllCustomersUseCase.OutputValues> {
+  UseCase<GetAllCustomersUseCase.InputValues, GetAllCustomersUseCase.OutputValues> {
 
   private final CustomerRepository repository;
 

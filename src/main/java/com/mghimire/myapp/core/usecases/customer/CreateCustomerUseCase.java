@@ -5,7 +5,7 @@ import com.mghimire.myapp.core.domain.Customer;
 import com.mghimire.myapp.core.domain.PhoneNumberAlreadyUsedException;
 
 public class CreateCustomerUseCase extends
-    UseCase<CreateCustomerUseCase.InputValues, CreateCustomerUseCase.OutputValues> {
+  UseCase<CreateCustomerUseCase.InputValues, CreateCustomerUseCase.OutputValues> {
 
   private final CustomerRepository repository;
 
@@ -17,19 +17,21 @@ public class CreateCustomerUseCase extends
   public OutputValues execute(InputValues input) {
     String phoneNumber = input.getPhoneNumber();
 
-    if (repository.existsByPhoneNumber(phoneNumber))
+    if (repository.existsByPhoneNumber(phoneNumber)) {
       throw new PhoneNumberAlreadyUsedException(
-          String.format("Customer with phone number %s already exists", phoneNumber));
+        String.format("Customer with phone number %s already exists", phoneNumber));
+    }
 
     Customer customer = new Customer.Builder(phoneNumber)
-        .setEmail(input.getEmail())
-        .setName(input.getName())
-        .build();
+      .setEmail(input.getEmail())
+      .setName(input.getName())
+      .build();
 
     return new OutputValues(repository.persist(customer));
   }
 
   public static class InputValues implements UseCase.InputValues {
+
     private final String phoneNumber;
     private final String name;
     private final String email;
@@ -54,6 +56,7 @@ public class CreateCustomerUseCase extends
   }
 
   public static class OutputValues implements UseCase.OutputValues {
+
     private final Customer customer;
 
     public OutputValues(Customer customer) {
